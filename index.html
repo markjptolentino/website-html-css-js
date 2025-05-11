@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mark JP Tolentino - Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: 'Roboto', sans-serif;
+            color: #ffffff;
+            background: #0a0a1a;
+            overflow-x: hidden;
+            cursor: none;
+        }
+        .custom-cursor {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            background: rgba(0, 255, 204, 0.5);
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 10000;
+            transform: translate(-50%, -50%);
+            transition: transform 0.1s;
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 26, 0.85);
+            backdrop-filter: blur(12px);
+            padding: 15px 50px;
+            z-index: 1000;
+        }
+        .navbar ul {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+            justify-content: flex-end;
+        }
+        .navbar a {
+            color: #00ffcc;
+            text-decoration: none;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .navbar a:hover {
+            color: #ff00ff;
+            transform: scale(1.1);
+        }
+        .section {
+            min-height: 100vh;
+            padding: 80px 50px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            position: relative;
+        }
+        #hero {
+            background: linear-gradient(135deg, #1a1a3d, #2a2a5e);
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        #hero h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5.5rem;
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px rgba(0, 255, 255, 0.7);
+        }
+        #hero p {
+            font-size: 1.8rem;
+            margin-bottom: 40px;
+            opacity: 0.9;
+        }
+        .btn {
+            padding: 15px 40px;
+            background: linear-gradient(45deg, #00ffcc, #ff00ff);
+            color: #0a0a1a;
+            text-decoration: none;
+            border-radius: 50px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: 700;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.7);
+        }
+        #about, #skills, #projects, #education, #experience, #certifications, #testimonials, #blog, #tools, #contact {
+            background: rgba(18, 18, 36, 0.95);
+            border-top: 1px solid rgba(0, 255, 204, 0.2);
+            backdrop-filter: blur(5px);
+        }
+        h2 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3rem;
+            margin-bottom: 40px;
+            color: #00ffcc;
+            text-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+        }
+        p, ul {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            max-width: 800px;
+        }
+        ul {
+            list-style: none;
+        }
+        ul li {
+            margin: 15px 0;
+            padding-left: 30px;
+            position: relative;
+            transition: transform 0.3s;
+        }
+        ul li:hover {
+            transform: translateX(10px);
+        }
+        ul li::before {
+            content: '>>';
+            position: absolute;
+            left: 0;
+            color: #ff00ff;
+            font-family: 'Orbitron', sans-serif;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+        }
+        .card {
+            background: rgba(26, 26, 46, 0.9);
+            padding: 25px;
+            border-radius: 15px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+        .card h3 {
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffcc;
+            margin-bottom: 10px;
+        }
+        #contact form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        #contact input, #contact textarea {
+            padding: 15px;
+            background: rgba(42, 42, 61, 0.8);
+            border: 1px solid #00ffcc;
+            border-radius: 10px;
+            color: #ffffff;
+            font-size: 1.1rem;
+            transition: border-color 0.3s;
+        }
+        #contact input:focus, #contact textarea:focus {
+            border-color: #ff00ff;
+            outline: none;
+        }
+        .social-links {
+            display: flex;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .social-links a {
+            color: #00ffcc;
+            font-size: 1.5rem;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .social-links a:hover {
+            color: #ff00ff;
+            transform: scale(1.2);
+        }
+        #sound-toggle {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            padding: 10px 20px;
+            background: #00ffcc;
+            color: #0a0a1a;
+            border-radius: 50px;
+            cursor: pointer;
+            z-index: 1000;
+        }
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        #code-rain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -2;
+            opacity: 0.2;
+        }
+        .loader {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #0a0a1a;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            transition: opacity 0.5s;
+        }
+        .loader.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        .loader::before {
+            content: 'Initializing Matrix...';
+            font-family: 'Orbitron', sans-serif;
+            color: #00ffcc;
+            font-size: 2rem;
+            animation: pulse 1.5s infinite;
+        }
+        @keyframes neonGlow {
+            from { text-shadow: 0 0 10px #00ffcc, 0 0 20px #00ffcc; }
+            to { text-shadow: 0 0 20px #ff00ff, 0 0 30px #ff00ff; }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader"></div>
+    <div class="custom-cursor"></div>
+    <nav class="navbar">
+        <ul>
+            <li><a href="#hero">Home</a></li>
+            <li><a href="#about">About</a></li>
+            <li><a href="#skills">Skills</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#certifications">Certifications</a></li>
+            <li><a href="#testimonials">Testimonials</a></li>
+            <li><a href="#blog">Blog</a></li>
+            <li><a href="#tools">Tools</a></li>
+            <li><a href="#contact">Contact</a></li>
+        </ul>
+    </nav>
+    <canvas id="code-rain"></canvas>
+    <canvas id="bg"></canvas>
+    <section id="hero" class="section">
+        <h1><span id="typed-name"></span></h1>
+        <p>Cybersecurity Expert | Software & Web Developer</p>
+        <a href="#contact" class="btn">Connect with Me</a>
+    </section>
+    <section id="about" class="section">
+        <h2>About Me</h2>
+        <p>I'm Mark JP Tolentino, a passionate professional specializing in cybersecurity, software engineering, and web development. I thrive on securing digital ecosystems and building innovative, user-centric applications with a flair for cutting-edge design.</p>
+    </section>
+    <section id="skills" class="section">
+        <h2>Skills</h2>
+        <ul>
+            <li>Cybersecurity: Ethical Hacking, Threat Analysis, Cryptography</li>
+            <li>Software Development: Python, JavaScript, C++, Go</li>
+            <li>Web Development: HTML5, CSS3, React, Node.js</li>
+            <li>Tools & Platforms: AWS, Kubernetes, Git, Wireshark</li>
+        </ul>
+    </section>
+    <section id="projects" class="section">
+        <h2>Projects</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Secure Web Platform</h3>
+                <p>A full-stack web app with end-to-end encryption, built with React, Node.js, and MongoDB.</p>
+            </div>
+            <div class="card">
+                <h3>Intrusion Detection System</h3>
+                <p>A Python-based IDS using machine learning for real-time threat detection.</p>
+            </div>
+            <div class="card">
+                <h3>3D Portfolio Website</h3>
+                <p>This website, featuring Matrix-style code rain and 3D animations.</p>
+            </div>
+            <div class="card">
+                <h3>API Security Suite</h3>
+                <p>A Go-based toolset for securing REST APIs against vulnerabilities.</p>
+            </div>
+        </div>
+    </section>
+    <section id="education" class="section">
+        <h2>Education</h2>
+        <ul>
+            <li>Bachelor of Science in Computer Science, [Your University], [Year]</li>
+            <li>Online Course: Advanced Cybersecurity, [Platform], [Year]</li>
+        </ul>
+    </section>
+    <section id="experience" class="section">
+        <h2>Experience</h2>
+        <ul>
+            <li>Cybersecurity Analyst, [Company], [Year-Present]: Conducted penetration testing and implemented security protocols.</li>
+            <li>Web Developer, [Company], [Year-Year]: Built responsive web applications using React and Node.js.</li>
+        </ul>
+    </section>
+    <section id="certifications" class="section">
+        <h2>Certifications</h2>
+        <ul>
+            <li>Certified Ethical Hacker (CEH), EC-Council, [Year]</li>
+            <li>AWS Certified Developer – Associate, Amazon, [Year]</li>
+            <li>CompTIA Security+, CompTIA, [Year]</li>
+        </ul>
+    </section>
+    <section id="testimonials" class="section">
+        <h2>Testimonials</h2>
+        <div class="grid">
+            <div class="card">
+                <p>"Mark's expertise in cybersecurity is unparalleled. His solutions are both innovative and robust." – [Colleague Name]</p>
+            </div>
+            <div class="card">
+                <p>"A talented developer with a keen eye for design. His portfolio website is a masterpiece!" – [Client Name]</p>
+            </div>
+        </div>
+    </section>
+    <section id="blog" class="section">
+        <h2>Blog Preview</h2>
+        <div class="grid">
+            <div class="card">
+                <h3>Securing APIs in 2025</h3>
+                <p>A guide to protecting REST APIs against modern threats.</p>
+            </div>
+            <div class="card">
+                <h3>Building 3D Web Experiences</h3>
+                <p>How to integrate Three.js for stunning web animations.</p>
+            </div>
+        </div>
+    </section>
+    <section id="tools" class="section">
+        <h2>Tools & Frameworks</h2>
+        <ul>
+            <li>Development: VS Code, WebStorm, Postman</li>
+            <li>Frameworks: React, Express, Django</li>
+            <li>Security: Metasploit, Burp Suite, Nmap</li>
+            <li>DevOps: Docker, Jenkins, Terraform</li>
+        </ul>
+    </section>
+    <section id="contact" class="section">
+        <h2>Contact</h2>
+        <form id="contact-form">
+            <input type="text" placeholder="Name" required>
+            <input type="email" placeholder="Email" required>
+            <textarea placeholder="Your Message" rows="6" required></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+        <div class="social-links">
+            <a href="https://www.linkedin.com/in/mark-jp-tolentino-043522294/" target="_blank">LinkedIn</a>
+            <a href="https://www.facebook.com/Gatxky" target="_blank">Facebook</a>
+            <a href="https://github.com/markjptolentino" target="_blank">GitHub</a>
+        </div>
+    </section>
+    <div id="sound-toggle">Sound: Off</div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script src="https://cdn.jsdelivr.net/npm/howler@2.2.3/dist/howler.min.js"></script>
+    <script>
+        // Loader Animation
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.querySelector('.loader').classList.add('hidden');
+            }, 2000);
+        });
+
+        // Custom Cursor
+        const cursor = document.querySelector('.custom-cursor');
+        document.addEventListener('mousemove', (e) => {
+            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1 });
+        });
+
+        // Sound Toggle
+        const sound = new Howl({ src: ['https://cdn.pixabay.com/audio/2022/03/10/audio_5b8b3a6b8e.mp3'], loop: true, volume: 0.2 });
+        const soundToggle = document.getElementById('sound-toggle');
+        let soundOn = false;
+        soundToggle.addEventListener('click', () => {
+            soundOn = !soundOn;
+            soundToggle.textContent = `Sound: ${soundOn ? 'On' : 'Off'}`;
+            soundOn ? sound.play() : sound.stop();
+        });
+
+        // Code Rain Effect
+        const codeCanvas = document.getElementById('code-rain');
+        const codeCtx = codeCanvas.getContext('2d');
+        codeCanvas.width = window.innerWidth;
+        codeCanvas.height = window.innerHeight;
+        const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*';
+        const fontSize = 14;
+        const columns = codeCanvas.width / fontSize;
+        const drops = Array(Math.floor(columns)).fill(1);
+        function drawCodeRain() {
+            codeCtx.fillStyle = 'rgba(10, 10, 26, 0.1)';
+            codeCtx.fillRect(0, 0, codeCanvas.width, codeCanvas.height);
+            codeCtx.fillStyle = '#00ffcc';
+            codeCtx.font = `${fontSize}px monospace`;
+            drops.forEach((y, i) => {
+                const text = chars.charAt(Math.floor(Math.random() * chars.length));
+                codeCtx.fillText(text, i * fontSize, y * fontSize);
+                if (y * fontSize > codeCanvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
+            });
+        }
+        setInterval(drawCodeRain, 33);
+        window.addEventListener('resize', () => {
+            codeCanvas.width = window.innerWidth;
+            codeCanvas.height = window.innerHeight;
+        });
+
+        // Three.js Particle System
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ canvas: document.getElementById('bg'), alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        camera.position.z = 50;
+
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particleCount = 6000;
+        const posArray = new Float32Array(particleCount * 3);
+        for (let i = 0; i < particleCount * 3; i++) {
+            posArray[i] = (Math.random() - 0.5) * 120;
+        }
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+        const particlesMaterial = new THREE.PointsMaterial({
+            size: 0.12,
+            color: 0x00ffcc,
+            transparent: true,
+            opacity: 0.8,
+            blending: THREE.AdditiveBlending
+        });
+        const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particlesMesh);
+
+        const torusGeometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
+        const torusMaterial = new THREE.MeshBasicMaterial({ color: 0xff00ff, wireframe: true });
+        const torusKnot = new THREE.Mesh(torusGeometry, torusMaterial);
+        scene.add(torusKnot);
+
+        function animate() {
+            requestAnimationFrame(animate);
+            particlesMesh.rotation.y += 0.001;
+            torusKnot.rotation.x += 0.005;
+            torusKnot.rotation.y += 0.005;
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        window.addEventListener('resize', () => {
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+        });
+
+        // Mouse Interaction
+        let mouseX = 0, mouseY = 0;
+        document.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) * 2 - 1;
+            mouseY = -(e.clientY / window.innerHeight) * 2 + 1;
+            gsap.to(torusKnot.rotation, { x: mouseY * 0.5, y: mouseX * 0.5, duration: 1 });
+        });
+
+        // Typed.js for Animated Name
+        const typed = new Typed('#typed-name', {
+            strings: ['Mark JP Tolentino'],
+            typeSpeed: 100,
+            backSpeed: 50,
+            loop: true,
+            showCursor: true,
+            cursorChar: '|'
+        });
+
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+        gsap.utils.toArray('.section').forEach((section, i) => {
+            gsap.from(section, {
+                opacity: 0,
+                y: 150,
+                duration: 1.5,
+                ease: 'power3.out',
+                scrollTrigger: {
+                    trigger: section,
+                    start: 'top 90%',
+                    end: 'bottom 10%',
+                    toggleActions: 'play none none reverse'
+                }
+            });
+            if (section.querySelector('.grid')) {
+                gsap.from(section.querySelectorAll('.card'), {
+                    opacity: 0,
+                    scale: 0.8,
+                    stagger: 0.2,
+                    duration: 1,
+                    scrollTrigger: {
+                        trigger: section,
+                        start: 'top 80%',
+                    }
+                });
+            }
+        });
+
+        // Parallax Effect
+        gsap.to('#hero', {
+            backgroundPosition: '50% 100%',
+            scrollTrigger: {
+                trigger: '#hero',
+                start: 'top top',
+                end: 'bottom top',
+                scrub: true
+            }
+        });
+
+        // Form Submission
+        document.getElementById('contact-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            gsap.to('#contact-form', {
+                scale: 0.95,
+                duration: 0.2,
+                yoyo: true,
+                repeat: 1,
+                onComplete: () => alert('Message sent! (Demo mode)')
+            });
+        });
+    </script>
+</body>
+</html>
